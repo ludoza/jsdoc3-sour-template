@@ -72,7 +72,7 @@ nav
 	float: left;
     margin-left: -230px;
     margin-top: 28px;
-    width: 220px;
+    /*width: 220px;*/
     border-left: 1px solid #ccc;
     padding-left: 9px;
 }
