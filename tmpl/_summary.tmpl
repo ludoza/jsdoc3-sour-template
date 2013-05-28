@@ -1,0 +1,38 @@
+<?js
+var data = obj;
+var self = this;
+?>
+<dl>
+	<table class="summary-table">
+	    <thead>
+		<tr>
+			<th colspan="3" class= "last"><h5><?js= data._title ?></h5></th>
+		</tr>
+		</thead>
+		<tbody>
+    <?js
+        obj.forEach(function(p, i) {
+			?>
+	        <tr>
+				<td class="attributes first text-right">
+					<?js= p.attribs ?>
+				</td>
+				<td class="last">
+						<a href="#<?js= p.name ?>"><code class="name"><?js= p.name ?></code></a><span class="type-signature"><?js= p.signature ?></span>
+						<div class="summary-description"> <?js= p.description ?></div>
+						<?js 
+							if ( typeof p.inherited != 'undefined' ) {
+						?>
+						<span class="small">Inherits from <a href="<?js= p.inherits.replace('#','.html#') ?>"><?js= p.inherits.split('#')[0]?></a></span>
+						<?js
+							}
+						?>
+				</td>
+			</tr>
+			<?js
+        } );
+    ?>
+	</tbody>
+</table>
+</dl>
+

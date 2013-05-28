@@ -3,6 +3,22 @@
 ?>
     <section>
         <article>
-            <pre class="prettyprint source"><code><?js= data.code ?></code></pre>
+            <pre class="prettyprint source"><code><?js 
+	function findNewLine(at) { return data.code.indexOf('\n',at); };
+	// TODO make this whole thing less hackish
+	if (findNewLine(0) != -1) {
+		var oldAt = 0,
+			line = 1;
+		for (var at = 0; oldAt != -1; at = findNewLine(at+1)) {
+			if (at) {
+				print( '<a name="line' + line + '"></a>' + data.code.slice(oldAt,at));
+				line++;
+			}
+			oldAt = at;
+		}
+	} else { print( data.code) } ;
+
+?></code></pre>
+			<a name="line"></a>
         </article>
     </section>
