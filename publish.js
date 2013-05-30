@@ -187,7 +187,7 @@ function buildNav(members) {
         nav += '<h3>Modules</h3><ul>';
         members.modules.forEach(function(m) {
             if ( !hasOwnProp.call(seen, m.longname) ) {
-                nav += '<li>'+linkto(m.longname, m.name)+'</li>';
+                nav += '<li>'+linkto(m.longname, m.longname)+'</li>';
             }
             seen[m.longname] = true;
         });
@@ -236,7 +236,7 @@ function buildNav(members) {
         nav += '<h3>Events</h3><ul>';
         members.events.forEach(function(e) {
             if ( !hasOwnProp.call(seen, e.longname) ) {
-                nav += '<li>'+linkto(e.longname, e.name)+'</li>';
+                nav += '<li>'+linkto(e.longname, e.longname)+'</li>';
             }
             seen[e.longname] = true;
         });
@@ -249,7 +249,7 @@ function buildNav(members) {
         nav += '<h3>Namespaces</h3><ul>';
         members.namespaces.forEach(function(n) {
             if ( !hasOwnProp.call(seen, n.longname) ) {
-                nav += '<li>'+linkto(n.longname, n.name)+'</li>';
+                nav += '<li>'+linkto(n.longname, n.longname)+'</li>';
             }
             seen[n.longname] = true;
         });
@@ -262,7 +262,7 @@ function buildNav(members) {
         nav += '<h3>Mixins</h3><ul>';
         members.mixins.forEach(function(m) {
             if ( !hasOwnProp.call(seen, m.longname) ) {
-                nav += '<li>'+linkto(m.longname, m.name)+'</li>';
+                nav += '<li>'+linkto(m.longname, m.longname)+'</li>';
             }
             seen[m.longname] = true;
         });

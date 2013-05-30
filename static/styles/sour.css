@@ -1,8 +1,5 @@
 div.summary {
-	margin-top: 2em;
-	margin-bottom: 2em;
-	clear: both;
-	display: inline-block;
+
 }
 
 div.doc_group {
@@ -78,4 +75,8 @@ table.layout-table {
 
 table.layout-table td.layout {
 	vertical-align: top;
+}
+
+.inherited div {
+	padding-left: 2em;
 }

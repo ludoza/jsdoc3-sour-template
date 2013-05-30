@@ -12,7 +12,9 @@ var self = this;
 		<tbody>
     <?js
         obj.forEach(function(p, i) {
+			if ( typeof p.inherited != 'undefined' ) return;
 			?>
+			
 	        <tr>
 				<td class="attributes first text-right">
 					<?js= p.attribs ?>
@@ -20,19 +22,26 @@ var self = this;
 				<td class="last">
 						<a href="#<?js= p.name ?>"><code class="name"><?js= p.name ?></code></a><span class="type-signature"><?js= p.signature ?></span>
 						<div class="summary-description"> <?js= p.description ?></div>
-						<?js 
-							if ( typeof p.inherited != 'undefined' ) {
-						?>
-						<span class="small">Inherits from <a href="<?js= p.inherits.replace('#','.html#') ?>"><?js= p.inherits.split('#')[0]?></a></span>
-						<?js
-							}
-						?>
 				</td>
 			</tr>
 			<?js
-        } );
+        });
     ?>
 	</tbody>
 </table>
+
+<?js
+	var inherited = '';
+    obj.forEach(function(p, i) {
+		if ( typeof p.inherited != 'undefined' ) {
+			if (inherited != '')
+				inherited += ',&nbsp '; 
+			inherited += '<a href="' + p.inherits.replace('#','.html#') + '">' + p.inherits.replace('#','.') + '</a>';
+		};
+	});
+	if (inherited != '') { ?> 
+<div class="inherited"><h6>Inherited</h6>  <div> <?js= inherited ?> </div>
+</div>
+<?js } ?>
 </dl>
 
