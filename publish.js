@@ -14,6 +14,13 @@ var template = require('jsdoc/template'),
     view,
     outdir = env.opts.destination;
 
+function logObject(obj, heading) {
+	heading = heading || obj;
+	console.log('=============== ' + heading + ' ===============')
+	for(var propertyName in obj) {
+		console.log('    ' + propertyName + ' = ' + obj[propertyName])
+	}		
+} 
 
 function find(spec) {
     return helper.find(data, spec);
@@ -88,6 +95,8 @@ function shortenPaths(files, commonPrefix) {
     Object.keys(files).forEach(function(file) {
         files[file].shortened = files[file].resolved.replace(commonPrefix, '')
             .replace(regexp, '/');
+		
+		files[file].sourceOutfile = helper.getUniqueFilename(files[file].shortened)
     });
 
     return files;
@@ -138,7 +147,7 @@ function generateSourceFiles(sourceFiles) {
     Object.keys(sourceFiles).forEach(function(file) {
         var source;
         // links are keyed to the shortened path in each doclet's `meta.filename` property
-        var sourceOutfile = helper.getUniqueFilename(sourceFiles[file].shortened);
+        var sourceOutfile = sourceFiles[file].sourceOutfile;
         helper.registerLink(sourceFiles[file].shortened, sourceOutfile);
 
         try {
@@ -345,7 +354,8 @@ exports.publish = function(taffyData, opts, tutorials) {
             resolvedSourcePath = resolveSourcePath(sourcePath);
             sourceFiles[sourcePath] = {
                 resolved: resolvedSourcePath,
-                shortened: null
+                shortened: null,
+				sourceOutfile: null,
             };
             sourceFilePaths.push(resolvedSourcePath);
         }
@@ -379,9 +389,11 @@ exports.publish = function(taffyData, opts, tutorials) {
         var docletPath;
         if (doclet.meta) {
             docletPath = getPathFromDoclet(doclet);
+			var sourceOutfile = sourceFiles[docletPath].sourceOutfile;
             docletPath = sourceFiles[docletPath].shortened;
             if (docletPath) {
                 doclet.meta.filename = docletPath;
+				doclet.meta.sourceOutfile = sourceOutfile;
             }
         }
     });
@@ -427,7 +439,8 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.linkto = linkto;
     view.resolveAuthorLinks = resolveAuthorLinks;
     view.tutoriallink = tutoriallink;
-    view.htmlsafe = htmlsafe;
+    view.htmlsafe = htmlsafe,
+	view.logObject = logObject;
 
     // once for all
     view.nav = buildNav(members);
