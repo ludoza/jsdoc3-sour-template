@@ -183,6 +183,7 @@ function buildNav(members) {
         seen = {};
 
     if (members.modules.length) {
+		members.modules.sort();
         nav += '<h3>Modules</h3><ul>';
         members.modules.forEach(function(m) {
             if ( !hasOwnProp.call(seen, m.longname) ) {
@@ -195,6 +196,7 @@ function buildNav(members) {
     }
     
     if (members.externals.length) {
+		members.externals.sort();
         nav += '<h3>Externals</h3><ul>';
         members.externals.forEach(function(e) {
             if ( !hasOwnProp.call(seen, e.longname) ) {
@@ -207,6 +209,7 @@ function buildNav(members) {
     }
 
     if (members.classes.length) {
+		members.classes.sort(function(a,b){return a.longname > b.longname});
         var moduleClasses = 0;
         members.classes.forEach(function(c) {
             var moduleSameName = find({kind: 'module', longname: c.longname});
@@ -220,7 +223,7 @@ function buildNav(members) {
                 moduleClasses = -1;
             }
             if ( !hasOwnProp.call(seen, c.longname) ) {
-                nav += '<li>'+linkto(c.longname, c.name)+'</li>';
+                nav += '<li>'+linkto(c.longname, c.longname)+'</li>';
             }
             seen[c.longname] = true;
         });
@@ -229,6 +232,7 @@ function buildNav(members) {
     }
 
     if (members.events.length) {
+		members.events.sort();
         nav += '<h3>Events</h3><ul>';
         members.events.forEach(function(e) {
             if ( !hasOwnProp.call(seen, e.longname) ) {
@@ -241,6 +245,7 @@ function buildNav(members) {
     }
     
     if (members.namespaces.length) {
+		members.namespaces.sort();
         nav += '<h3>Namespaces</h3><ul>';
         members.namespaces.forEach(function(n) {
             if ( !hasOwnProp.call(seen, n.longname) ) {
@@ -253,6 +258,7 @@ function buildNav(members) {
     }
     
     if (members.mixins.length) {
+		members.mixins.sort();
         nav += '<h3>Mixins</h3><ul>';
         members.mixins.forEach(function(m) {
             if ( !hasOwnProp.call(seen, m.longname) ) {
@@ -265,6 +271,7 @@ function buildNav(members) {
     }
 
     if (members.tutorials.length) {
+		members.tutorials.sort();
         nav += '<h3>Tutorials</h3><ul>';
         members.tutorials.forEach(function(t) {
             nav += '<li>'+tutoriallink(t.name)+'</li>';
@@ -274,6 +281,7 @@ function buildNav(members) {
     }
     
     if (members.globals.length) {
+		members.globals.sort();
         nav += '<h3>Global</h3><ul>';
         members.globals.forEach(function(g) {
             if ( g.kind !== 'typedef' && !hasOwnProp.call(seen, g.longname) ) {
@@ -457,7 +465,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     var files = find({kind: 'file'}),
         packages = find({kind: 'package'});
 
-    generate('Index',
+    generate(opts.indexTitle || 'Index',
         packages.concat(
             [{kind: 'mainpage', readme: opts.readme, longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page'}]
         ).concat(files),
