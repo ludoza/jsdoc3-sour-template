@@ -172,27 +172,26 @@
 	<?js } ?>
 	
 	<?js
-		var members = self.find({kind: 'member', memberof: title === 'Global' ? {isUndefined: true} : doc.longname});
-		if (members && members.length && members.forEach) { 
+		var members = self.find({kind: 'member', memberof: title === 'Global' ? {isUndefined: true} : doc.longname, inherited: {isUndefined:true}});
+		if (members && members.length && members.forEach) {
+			 
 	?>
 		<h3 class="subsection-title">Members</h3>
 		
 		<dl><?js members.forEach(function(p) { 
-			// TODO fix a hack you are not proud of but it just works without thinking.
-			if ( typeof p.inherited != 'undefined' ) return;?>
+			self.logObject(p)
+			?>
 			<?js= self.partial('members.tmpl', p) ?>
 		<?js }); ?></dl>
 	<?js } ?>
 	
 	<?js
-		var methods = self.find({kind: 'function', memberof: title === 'Global' ? {isUndefined: true} : doc.longname});
+		var methods = self.find({kind: 'function', memberof: title === 'Global' ? {isUndefined: true} : doc.longname, inherited: {isUndefined:true}});
 		if (methods && methods.length && methods.forEach) { 
 	?>
 		<h3 class="subsection-title">Methods</h3>
 		
-		<dl><?js methods.forEach(function(m) { 
-			// TODO fix a hack you are not proud of but it just works without thinking.
-			if ( typeof m.inherited != 'undefined' ) return;?>
+		<dl><?js methods.forEach(function(m) { ?>
 			<?js= self.partial('method.tmpl', m) ?>
 		<?js }); ?></dl>
 	<?js } ?>
