@@ -372,6 +372,9 @@ exports.publish = function(taffyData, opts, tutorials) {
     // update outdir if necessary, then create outdir
     var packageInfo = ( find({kind: 'package'}) || [] ) [0];
     if (packageInfo && packageInfo.name) {
+        outdir = outdir || '';
+        packageInfo.version = packageInfo.version || 'Must be alpha!';
+        packageInfo.name = packageInfo.name || '';
         outdir = path.join(outdir, packageInfo.name, packageInfo.version);
     }
     fs.mkPath(outdir);
