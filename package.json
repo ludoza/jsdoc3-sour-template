@@ -1,0 +1,22 @@
+{
+  "name": "jsdoc3-sour-template",
+  "version": "1.0.0",
+  "description": "jsdoc template",
+  "main": "publish.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ludoza/jsdoc3-sour-template.git"
+  },
+  "keywords": [
+    "jsdoc"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ludoza/jsdoc3-sour-template/issues"
+  },
+  "homepage": "https://github.com/ludoza/jsdoc3-sour-template#readme"
+}
